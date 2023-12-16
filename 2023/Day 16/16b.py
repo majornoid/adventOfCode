@@ -1,6 +1,8 @@
 inFile = open("input.txt" , 'r')
 grid = inFile.read().split("\n")
 #numbers = [i.split(' ') for i in numbers]
+grid.remove("")
+
 answer = 0
 
 def move(row, col, direction, grid, touched, touchedD):
@@ -55,7 +57,8 @@ def move(row, col, direction, grid, touched, touchedD):
     elif direction == "r" and row < len(grid) - 1:
       newPoints.append((row + 1, col, "d"))
   return newPoints
-      
+  
+partOne = -1    
   
 for i in range(len(grid)):
   touched = set()
@@ -67,6 +70,8 @@ for i in range(len(grid)):
       if point not in touchedD:
         newPoints += move(point[0], point[1], point[2], grid, touched, touchedD)
     currentPoints = newPoints
+  if partOne == -1:
+    partOne = len(touched)
   if len(touched) > answer:
     answer = len(touched)
     
@@ -109,5 +114,6 @@ for i in range(len(grid[0])):
   if len(touched) > answer:
     answer = len(touched)
     
-print(answer)
+print(f"Part One: {partOne}")
+print(f"Part Two: {answer}")
     
